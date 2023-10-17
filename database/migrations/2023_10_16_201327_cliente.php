@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('usuario', function (Blueprint $table) {
             $table->id();
             $table->string('cnpj')->unique();
-            $table->string('nome')->unique();
+            $table->string('nome');
             $table->string('razao_social')->unique();
-            $table->string('endereco')->unique();
+            $table->string('endereco');
         });
     }
 
