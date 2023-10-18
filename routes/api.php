@@ -16,10 +16,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/usuario', [ClienteController::class, 'createUser']);
-Route::get('/usuario/{id}', [ClienteController::class, 'show']);
-Route::get('/usuario', [ClienteController::class, 'findAll']);
-Route::put('/usuario/{id}', [ClienteController::class, 'updateController']);
+Route::get('/usuario/{id}', [ClienteController::class, 'findByIdUser']);
+Route::get('/usuario', [ClienteController::class, 'findAllUser']);
+Route::put('/usuario/{id}', [ClienteController::class, 'updateUser']);
+Route::delete('usuario/{id}', [ClienteController::class, 'deleteUser']);
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
