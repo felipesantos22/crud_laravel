@@ -8,22 +8,6 @@ use Illuminate\Validation\ValidationException;
 
 class ClienteController extends Controller
 {
-    // public function createUser(Request $request)
-    // {
-    //     $request->validate([
-    //         'cnpj' => 'required|unique:usuario,cnpj',
-    //         'razao_social' => 'required|unique:usuario,razao_social',
-    //         // Outras regras de validação, se necessário
-    //     ], [
-    //         'cnpj.required' => 'O CNPJ é obrigatório.',
-    //         'cnpj.unique' => 'O CNPJ fornecido já está em uso. Escolha outro CNPJ.',
-    //         'razao_social.required' => 'A razão social é obrigatória.',
-    //         'razao_social.unique' => 'A razão social fornecida já está em uso. Escolha outra razão social.',
-    //         // Mensagens de erro personalizadas para outras regras de validação, se necessário
-    //     ]);
-    //     return ClienteModel::create($request->all());
-    // }
-
     public function createUser(Request $request)
     {
         try {
@@ -31,9 +15,10 @@ class ClienteController extends Controller
                 'cnpj' => 'unique:usuario,cnpj',
                 'razao_social' => 'unique:usuario,razao_social',
             ], [
-                'cnpj.unique' => 'O CNPJ fornecido já está em uso. Escolha outro CNPJ.', // Mensagem de erro personalizada
+                'cnpj.unique' => 'O CNPJ fornecido já está em uso. Escolha outro CNPJ.',
             ]);
-            return response()->json(['message' => 'Usuário criado com sucesso'], 201);
+            $cliente = ClienteModel::create($request->all());
+            return response()->json(['message' => 'Usuário criado com sucesso', 'Usuário' => $cliente], 201);
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->validator->errors()], 422);
         }
