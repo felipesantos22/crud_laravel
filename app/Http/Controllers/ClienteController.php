@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ClienteModel;
+use App\Models\Cliente;
 use Illuminate\Validation\ValidationException;
 
 class ClienteController extends Controller
@@ -17,7 +17,7 @@ class ClienteController extends Controller
             ], [
                 'cnpj.unique' => 'O CNPJ fornecido já está em uso. Escolha outro CNPJ.',
             ]);
-            $cliente = ClienteModel::create($request->all());
+            $cliente = Cliente::create($request->all());
             return response()->json(['message' => 'Usuário criado com sucesso', 'Usuário' => $cliente], 201);
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->validator->errors()], 422);
@@ -30,7 +30,7 @@ class ClienteController extends Controller
 
     public function findByIdUser($id)
     {
-        $user = ClienteModel::find($id);
+        $user = Cliente::find($id);
 
         if (!$user) {
             return response()->json(['message' => 'Usuário não encontrado'], 404);
@@ -43,7 +43,7 @@ class ClienteController extends Controller
 
     public function findAllUser()
     {
-        return ClienteModel::all();
+        return Cliente::all();
     }
 
 
@@ -51,7 +51,7 @@ class ClienteController extends Controller
 
     public function updateUser($id, Request $request)
     {
-        $post = ClienteModel::find($id);
+        $post = Cliente::find($id);
 
         if (!$post) {
             return response()->json(['message' => 'User not found'], 404);
@@ -72,7 +72,7 @@ class ClienteController extends Controller
 
     public function deleteUser($id)
     {
-        $recurso = ClienteModel::find($id);
+        $recurso = Cliente::find($id);
 
         if (!$recurso) {
             return response()->json(['message' => 'User not found'], 404);
