@@ -11,11 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('produto', function (Blueprint $table) {
-            $table->id();
-            $table->string('nome')->unique();
-            $table->integer('valor');
-        });
+        //
     }
 
     /**
@@ -23,6 +19,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('produto');
+        //
     }
 };

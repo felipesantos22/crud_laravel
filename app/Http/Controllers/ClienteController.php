@@ -51,20 +51,20 @@ class ClienteController extends Controller
 
     public function updateUser($id, Request $request)
     {
-        $post = Cliente::find($id);
+        $user = Cliente::find($id);
 
-        if (!$post) {
+        if (!$user) {
             return response()->json(['message' => 'User not found'], 404);
         }
 
-        $post->cnpj = $request->input('cnpj');
-        $post->nome = $request->input('nome');
-        $post->razao_social = $request->input('razao_social');
-        $post->endereco = $request->input('endereco');
+        $user->cnpj = $request->input('cnpj');
+        $user->nome = $request->input('nome');
+        $user->razao_social = $request->input('razao_social');
+        $user->endereco = $request->input('endereco');
 
-        $post->save();
+        $user->save();
 
-        return response()->json(['message' => 'Post updated successfully', 'User' => $post], 200);
+        return response()->json(['message' => 'Post updated successfully', 'User' => $user], 200);
     }
 
 
@@ -80,6 +80,15 @@ class ClienteController extends Controller
 
         $recurso->delete();
 
-        return response()->json(['message' => 'Recurso excluído com sucesso']);
+        return response()->json(['message' => 'User excluído com sucesso']);
+    }
+
+
+
+
+    public function orderClient()
+    {
+        $produto = Cliente::orderBy('nome', 'asc')->get();
+        return response()->json($produto);
     }
 }
