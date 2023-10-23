@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Cliente;
+use App\Models\Usuario;
 use Illuminate\Validation\ValidationException;
 
 class ClienteController extends Controller
@@ -12,12 +12,13 @@ class ClienteController extends Controller
     {
         try {
             $this->validate($request, [
-                'cnpj' => 'unique:usuario,cnpj',
+                'cnpj' => 'unique:usuario|min:14|max:14',
                 'razao_social' => 'unique:usuario,razao_social',
             ], [
                 'cnpj.unique' => 'O CNPJ fornecido já está em uso. Escolha outro CNPJ.',
+                'cnpj.min' => 'O CNPJ deve ter 14 caracteres.',
             ]);
-            $cliente = Cliente::create($request->all());
+            $cliente = Usuario::create($request->all());
             return response()->json(['message' => 'Usuário criado com sucesso', 'Usuário' => $cliente], 201);
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->validator->errors()], 422);
@@ -28,9 +29,10 @@ class ClienteController extends Controller
 
 
 
+
     public function findByIdUser($id)
     {
-        $user = Cliente::find($id);
+        $user = Usuario::find($id);
 
         if (!$user) {
             return response()->json(['message' => 'Usuário não encontrado'], 404);
@@ -43,7 +45,8 @@ class ClienteController extends Controller
 
     public function findAllUser()
     {
-        return Cliente::all();
+        $cliente = Usuario::with('pedidos')->get();
+        return response()->json($cliente);
     }
 
 
@@ -51,7 +54,7 @@ class ClienteController extends Controller
 
     public function updateUser($id, Request $request)
     {
-        $user = Cliente::find($id);
+        $user = Usuario::find($id);
 
         if (!$user) {
             return response()->json(['message' => 'User not found'], 404);
@@ -72,7 +75,7 @@ class ClienteController extends Controller
 
     public function deleteUser($id)
     {
-        $recurso = Cliente::find($id);
+        $recurso = Usuario::find($id);
 
         if (!$recurso) {
             return response()->json(['message' => 'User not found'], 404);
@@ -88,7 +91,7 @@ class ClienteController extends Controller
 
     public function orderClient()
     {
-        $produto = Cliente::orderBy('nome', 'asc')->get();
+        $produto = Usuario::orderBy('nome', 'asc')->get();
         return response()->json($produto);
     }
 }

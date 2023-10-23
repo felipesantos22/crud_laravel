@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pedido;
+use App\Models\Pedido_Produto;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
-class PedidoController extends Controller
+class PedidoProdutoController extends Controller
 {
-    public function createPedido(Request $request)
+
+    public function createPedidoProduto(Request $request)
     {
         try {
-            $pedido = Pedido::create($request->all());
-            return response()->json(['message' => 'Pedido cadastrado com sucesso', 'Pedido' => $pedido], 201);
+            $pedido = Pedido_Produto::create($request->all());
+            return response()->json(['message' => 'Produto cadastrado com sucesso', 'Usuário' => $pedido], 201);
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->validator->errors()], 422);
         } catch (QueryException $e) {
@@ -22,13 +23,8 @@ class PedidoController extends Controller
                 return response()->json(['error' => 'A chave estrangeira não existe. Certifique-se de que as chaves estrangeiras estão corretas.'], 422);
             } else {
                 // Trate outros erros de QueryException aqui, se necessário
-                return response()->json(['error' => 'Erro ao cadastrar o pedido'], 500);
+                return response()->json(['error' => 'Erro ao cadastrar o produto'], 500);
             }
         }
-    }
-
-    public function findAllPedido()
-    {
-        return Pedido::all();
     }
 }

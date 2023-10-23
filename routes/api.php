@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\PedidoController;
+use App\Http\Controllers\PedidoProdutoController;
 use App\Http\Controllers\ProdutoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +34,12 @@ Route::get('/produtoAsc', [ProdutoController::class, 'orderProduct']);
 Route::put('/produto/{id}', [ProdutoController::class, 'updateProduct']);
 Route::delete('/produto/{id}', [ProdutoController::class, 'deleteProduct']);
 
+// Rotas pedido
+Route::post('/pedido', [PedidoController::class, 'createPedido']);
+Route::get('/pedido', [PedidoController::class, 'findAllPedido']);
+
+// Rotas pedido_produto
+Route::post('/pedidoproduto', [PedidoProdutoController::class, 'createPedidoProduto']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

@@ -55,6 +55,7 @@ class ProdutoController extends Controller
         }
 
         $produto->nome = $request->input('nome');
+        $produto->valor = $request->input('valor');
 
         $produto->save();
 
