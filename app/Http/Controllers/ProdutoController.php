@@ -79,12 +79,22 @@ class ProdutoController extends Controller
     }
 
 
-    
+
 
     // Rota para ordenar os produtos por valor
     public function orderProduct()
     {
         $produto = Produto::orderBy('valor', 'asc')->get();
         return response()->json($produto);
+    }
+
+
+
+
+    public function paginacao(Request $request)
+    {
+        $perPage = $request->input('per_page', 10);
+        $products = Produto::paginate($perPage);
+        return response()->json($products);
     }
 }

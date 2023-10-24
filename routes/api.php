@@ -30,7 +30,8 @@ Route::delete('usuario/{id}', [ClienteController::class, 'deleteUser']);
 Route::post('/produto', [ProdutoController::class, 'createProduct']);
 Route::get('/produto/{id}', [ProdutoController::class, 'findByIdProduct']);
 Route::get('/produto', [ProdutoController::class, 'findAllProduct']);
-Route::get('/produtoAsc', [ProdutoController::class, 'orderProduct']);
+Route::get('/produtopag', [ProdutoController::class, 'paginacao']);
+Route::get('/produtoasc', [ProdutoController::class, 'orderProduct']);
 Route::put('/produto/{id}', [ProdutoController::class, 'updateProduct']);
 Route::delete('/produto/{id}', [ProdutoController::class, 'deleteProduct']);
 

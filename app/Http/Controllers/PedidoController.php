@@ -19,7 +19,7 @@ class PedidoController extends Controller
         } catch (QueryException $e) {
             // Verifique se a exceção é de violação de chave estrangeira (FK)
             if (strpos($e->getMessage(), 'foreign key constraint fails') !== false) {
-                return response()->json(['error' => 'A chave estrangeira não existe. Certifique-se de que as chaves estrangeiras estão corretas.'], 422);
+                return response()->json(['error' => 'Certifique-se de que a chave estrangeira está correta.'], 422);
             } else {
                 // Trate outros erros de QueryException aqui, se necessário
                 return response()->json(['error' => 'Erro ao cadastrar o pedido'], 500);
