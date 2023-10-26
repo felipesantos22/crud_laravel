@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\PedidoProdutoController;
 use App\Http\Controllers\ProdutoController;
@@ -41,6 +42,16 @@ Route::get('/pedido', [PedidoController::class, 'findAllPedido']);
 
 // Rotas pedido_produto
 Route::post('/pedidoproduto', [PedidoProdutoController::class, 'createPedidoProduto']);
+
+// Rotas Login
+Route::post('/register', [LoginController::class, 'createLogin']);
+Route::post('/login', [LoginController::class, 'login']);
+
+// Route::group(['prefix' => 'auth'], function () {
+//     Route::post('login', 'AuthController@login');
+//     Route::post('register', 'AuthController@register');
+// });
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
